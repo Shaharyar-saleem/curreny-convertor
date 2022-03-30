@@ -3,10 +3,18 @@ import Switcher from "../assets/Switcher.png";
 import Result from "./Result.jsx";
 
 export default function Convertor() {
-  let [amount, setAmount] = useState()
-  let [from, setFrom] = useState('')
-  let [to, setTo] = useState('')
+  let [amount, setAmount] = useState(1)
+  let [from, setFrom] = useState('EUR')
+  let [to, setTo] = useState('USD')
   let [result, setResult] = useState();
+
+  let currencies = ['USD', 'EUR', 'CHF']
+
+  window.onload = () => {
+    // setFrom('EUR')
+    // setTo('USD')
+    convertCurrency()
+  }
 
   let handleConvertAmount = async(e) => {
     console.log("first value:", e.target.value)
@@ -24,6 +32,7 @@ export default function Convertor() {
     setTo(e.target.value)
   }
 
+
   let convertCurrency = async() => {
     let convertFrom = from
     let convertTo = to
@@ -33,9 +42,10 @@ export default function Convertor() {
     console.log('api url', url)
     let apiResult = await fetch(url)
     let data = await apiResult.json()
-    setResult(data.conversion_rate)
+    setResult(data.conversion_result)
  }
 
+  // styling of component
   let convertorHeading = {
     fontWeight: "bold",
     fontSize: "40px",
@@ -85,29 +95,29 @@ export default function Convertor() {
               className="form-control"
               placeholder="1.0"
               style={inputField}
+              defaultValue={1}
               onChange={handleConvertAmount}
             />
           </div>
           <div className="col-md-3">
           <label style={formLabel}>From</label>
-            <input
-              type="text"
-              className="form-control"
-              style={inputField}
-              onChange={handleConvetFrom}
-            />
+          <select className="form-control" style={inputField} onChange={handleConvetFrom}>
+            {currencies.map(currency => 
+              <option value={currency} key={currency} selected={currency ===  'EUR' ? true : false} >{currency}</option> 
+            )}
+          </select>
+
           </div>
           <div className="col-md-1 d-flex justify-content-center">
             <img src={Switcher} alt="Switcher Icon" style={{marginTop: '50px'}} />
             </div>
           <div className="col-md-3">
             <label style={formLabel}>To</label>
-            <input
-              type="text"
-              className="form-control"
-              style={inputField}
-              onChange={handleConvertTo}
-            />
+            <select className="form-control" style={inputField} onChange={handleConvertTo}>
+            {currencies.map(currency => 
+              <option value={currency} key={currency}>{currency}</option> 
+            )}
+          </select>
           </div>
           <div className="col-md-2">
               <button style={convertBtn} onClick={convertCurrency}>Convert</button>

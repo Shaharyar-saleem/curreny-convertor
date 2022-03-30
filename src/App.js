@@ -6,7 +6,12 @@ function App() {
   return (
     <div className="App">
       <Header />
-      <Convertor />
+      <div className="row">
+        <div className="col-md-9">
+        <Convertor />
+        </div>
+        <div className="col-md-3"></div>
+      </div>
     </div>
   );
 }
