@@ -1,17 +1,18 @@
 import './App.css';
 import Header from './Components/Header.jsx';
 import Convertor from './Components/Convertor.jsx';
+import History from './Components/History';
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 function App() {
+
   return (
     <div className="App">
       <Header />
-      <div className="row">
-        <div className="col-md-9">
-        <Convertor />
-        </div>
-        <div className="col-md-3"></div>
-      </div>
+          <Routes>
+            <Route path="/" exact="true" element={<Convertor />}/>
+            <Route path="/history" exact="true" element={<History />}/>
+          </Routes>  
     </div>
   );
 }

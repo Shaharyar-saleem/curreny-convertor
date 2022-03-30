@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import Switcher from "../assets/Switcher.png";
 import Result from "./Result.jsx";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 export default function Convertor() {
   let [amount, setAmount] = useState(1)
@@ -11,24 +12,18 @@ export default function Convertor() {
   let currencies = ['USD', 'EUR', 'CHF']
 
   window.onload = () => {
-    // setFrom('EUR')
-    // setTo('USD')
     convertCurrency()
   }
 
   let handleConvertAmount = async(e) => {
-    console.log("first value:", e.target.value)
     setAmount(e.target.value)
-    console.log("entered amount:", amount)
   }
 
   let handleConvetFrom = async(e) => {
-    console.log(e.target.value)
     setFrom(e.target.value)
   }
 
   let handleConvertTo = async(e) => {
-    console.log("to currency:", e.target.value)
     setTo(e.target.value)
   }
 
@@ -73,6 +68,7 @@ export default function Convertor() {
       border: 'none',
       borderRadius: '8px',
       color: 'white',
+      height: '40px',
   }
   let convertBtn = {
       backgroundColor: '#f3ff0a',
@@ -80,15 +76,26 @@ export default function Convertor() {
       height: '40px',
       width: '117px',
       borderRadius: '8px',
-      marginTop: '35px',
+      marginTop: '37px',
+  }
+  let historyLink = {
+    position: 'absolute',
+    top: '60%',
+    transform: 'translateY(55%)',
+    color: '#FFF',
+    fontSize: '15px',
+    lineHeight: '14px',
+    opacity: '0.5',
+    left: '10%',
   }
 
   return (
-    <div>
+    <div className="custom-container">
       <h2 style={convertorHeading}>Convert currencies in real-time.</h2>
-      <div style={convertorForm}>
         <div className="row">
-          <div className="col-md-3">
+          <div className="col-md-9">
+            <div className="row" style={convertorForm}>
+            <div className="col-md-3">
             <label style={formLabel}>Amount</label>
             <input
               type="text"
@@ -122,8 +129,12 @@ export default function Convertor() {
           <div className="col-md-2">
               <button style={convertBtn} onClick={convertCurrency}>Convert</button>
           </div>
+            </div>
+          </div>
+          <div className="col-md-3">
+          <Link to="/history" style={historyLink}>View conversion history &gt; </Link>
+          </div>
         </div>
-      </div>
 
       <Result from={from} to={to} amount={amount} result={result} />
     </div>
