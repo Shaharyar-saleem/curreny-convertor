@@ -101,6 +101,10 @@ export default function Convertor(props) {
     opacity: '0.5',
     left: '10%',
   }
+let switcherIcon = {
+  marginTop: '47px', 
+  height: '20px',
+}
 
   return (
     <div className="custom-container">
@@ -129,7 +133,7 @@ export default function Convertor(props) {
 
           </div>
           <div className="col-md-1 d-flex justify-content-center">
-            <img src={Switcher} alt="Switcher Icon" style={{marginTop: '50px'}} />
+            <img src={Switcher} alt="Switcher Icon" style={switcherIcon} />
             </div>
           <div className="col-md-3">
             <label style={formLabel}>To</label>
