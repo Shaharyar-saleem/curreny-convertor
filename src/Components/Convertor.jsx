@@ -1,7 +1,41 @@
-import React from "react";
+import React, {useState} from "react";
 import Switcher from "../assets/Switcher.png";
+import Result from "./Result.jsx";
 
 export default function Convertor() {
+  let [amount, setAmount] = useState()
+  let [from, setFrom] = useState('')
+  let [to, setTo] = useState('')
+  let [result, setResult] = useState();
+
+  let handleConvertAmount = async(e) => {
+    console.log("first value:", e.target.value)
+    setAmount(e.target.value)
+    console.log("entered amount:", amount)
+  }
+
+  let handleConvetFrom = async(e) => {
+    console.log(e.target.value)
+    setFrom(e.target.value)
+  }
+
+  let handleConvertTo = async(e) => {
+    console.log("to currency:", e.target.value)
+    setTo(e.target.value)
+  }
+
+  let convertCurrency = async() => {
+    let convertFrom = from
+    let convertTo = to
+    let convertAmount = amount
+    let accessKey = 'cce645e42f54228b3438d45c'
+    const url = `https://v6.exchangerate-api.com/v6/${accessKey}/pair/${convertFrom}/${convertTo}/${convertAmount}`
+    console.log('api url', url)
+    let apiResult = await fetch(url)
+    let data = await apiResult.json()
+    setResult(data.conversion_rate)
+ }
+
   let convertorHeading = {
     fontWeight: "bold",
     fontSize: "40px",
@@ -29,7 +63,6 @@ export default function Convertor() {
       border: 'none',
       borderRadius: '8px',
       color: 'white',
-      webkitAppearance: 'none',
   }
   let convertBtn = {
       backgroundColor: '#f3ff0a',
@@ -39,27 +72,29 @@ export default function Convertor() {
       borderRadius: '8px',
       marginTop: '35px',
   }
+
   return (
     <div>
       <h2 style={convertorHeading}>Convert currencies in real-time.</h2>
-      <form style={convertorForm}>
+      <div style={convertorForm}>
         <div className="row">
           <div className="col-md-3">
             <label style={formLabel}>Amount</label>
             <input
               type="text"
               className="form-control"
-              value="1.00"
+              placeholder="1.0"
               style={inputField}
+              onChange={handleConvertAmount}
             />
           </div>
           <div className="col-md-3">
           <label style={formLabel}>From</label>
             <input
-              type="number"
+              type="text"
               className="form-control"
-              value="1.00"
               style={inputField}
+              onChange={handleConvetFrom}
             />
           </div>
           <div className="col-md-1 d-flex justify-content-center">
@@ -68,17 +103,19 @@ export default function Convertor() {
           <div className="col-md-3">
             <label style={formLabel}>To</label>
             <input
-              type="number"
+              type="text"
               className="form-control"
-              value="1.00"
               style={inputField}
+              onChange={handleConvertTo}
             />
           </div>
           <div className="col-md-2">
-              <input type="submit" value="Convert" style={convertBtn} />
+              <button style={convertBtn} onClick={convertCurrency}>Convert</button>
           </div>
         </div>
-      </form>
+      </div>
+
+      <Result from={from} to={to} amount={amount} result={result} />
     </div>
   );
 }
