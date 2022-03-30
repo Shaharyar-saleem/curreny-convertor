@@ -18,7 +18,7 @@ export default function Alert(props) {
   return (
     props.alertBox && (
       <div
-        className={`alert alert-${props.alertBox.type} alert-dismissible fade show mt-4`}
+        className={`alert alert-${props.alertBox.type} alert-dismissible fade show mt-4 mobile-alert`}
         role="alert"
         style={alertBox}
       >

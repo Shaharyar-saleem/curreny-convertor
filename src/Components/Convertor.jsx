@@ -114,7 +114,7 @@ export default function Convertor(props) {
     <div className="custom-container">
       <h2 style={convertorHeading}>Convert currencies in real-time.</h2>
       <div className="row">
-        <div className="col-md-9">
+        <div className="col-lg-9 col-md-12">
           <div className="row" style={convertorForm}>
             <div className="col-md-3">
               <label style={formLabel}>Amount</label>
@@ -169,7 +169,7 @@ export default function Convertor(props) {
             </div>
           </div>
         </div>
-        <div className="col-md-3">
+        <div className="col-lg-3 col-md-12">
           <Link to="/history" style={historyLink}>
             View conversion history &gt;{" "}
           </Link>

@@ -19,3 +19,11 @@ input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+
+/* mobile media queries */
+@media (max-width: 600px) {
+  .mobile-alert{
+    width: 90% !important;
+    left: 9%;
+  }
+}
