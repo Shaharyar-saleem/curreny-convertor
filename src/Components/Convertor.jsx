@@ -1,16 +1,13 @@
-import React, {useState, useEffect} from "react";
+import React, {useState} from "react";
 import Switcher from "../assets/Switcher.png";
 import Result from "./Result.jsx";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
-export default function Convertor() {
+export default function Convertor(props) {
   let [amount, setAmount] = useState(1)
   let [from, setFrom] = useState('EUR')
   let [to, setTo] = useState('USD')
   let [result, setResult] = useState()
-  
-  let [historyData, setHistoryData] = useState([])
-
   let currencies = ['USD', 'EUR', 'CHF']
 
   window.onload = () => {
@@ -18,7 +15,7 @@ export default function Convertor() {
   }
 
   let handleConvertAmount = async(e) => {
-    setAmount(e.target.value)
+    e.target.value <= 0 ? props.alert("Please enter amount above 0", "danger") : setAmount(e.target.value)
   }
 
   let handleConvetFrom = async(e) => {
@@ -36,7 +33,6 @@ export default function Convertor() {
     let convertAmount = amount
     let accessKey = 'cce645e42f54228b3438d45c'
     const url = `https://v6.exchangerate-api.com/v6/${accessKey}/pair/${convertFrom}/${convertTo}/${convertAmount}`
-    console.log('api url', url)
     let apiResult = await fetch(url)
     let data = await apiResult.json()
     setResult(data.conversion_result)
@@ -52,16 +48,10 @@ export default function Convertor() {
       let oldRecord = JSON.parse(localStorage.getItem('history'))
       oldRecord.push(newRecord)
       localStorage.setItem('history', JSON.stringify(oldRecord))
+      props.alert("Transaction is stored in history", "success")
     }
     
  }
-
-//  useEffect(() => {
-//    return () => {
-//      localStorage.setItem('history', JSON.stringify(historyData))
-//      console.log("hi")
-//    };
-//  }, [historyData]);
 
   // styling of component
   let convertorHeading = {

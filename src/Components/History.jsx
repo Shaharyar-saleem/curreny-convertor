@@ -41,8 +41,7 @@ export default function History() {
   
  
   return (
-    <div
-      className="mt-5 pt-5"
+    <div className="mt-5"
       style={{ background: "#1A1A1A", height: "100vh" }}
     >
       <div className="custom-container table-responsive">
