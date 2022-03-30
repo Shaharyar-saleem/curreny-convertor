@@ -1,7 +1,10 @@
-import React from "react";
+import React, {useState} from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 export default function History() {
+  
+  let [previousData, setPreviousData] = useState(JSON.parse(localStorage.getItem('history')))
+
   let homeLink = {
     position: "absolute",
     top: "15%",
@@ -10,15 +13,13 @@ export default function History() {
     fontSize: "15px",
     lineHeight: "14px",
     opacity: "0.5",
-  };
-
+  }
   let historyTable = {
     border: "none",
     color: "#FFF",
     borderCollapse: 'separate',
     borderSpacing: '0 26px',
-  };
-
+  }
   let tableRow = {
     backgroundColor: "#353535",
     marginTop: "10px",
@@ -37,7 +38,8 @@ export default function History() {
     borderTopRightRadius: '15px',
     borderBottomRightRadius: '15px',
   }
-
+  
+ 
   return (
     <div
       className="mt-5 pt-5"
@@ -56,11 +58,13 @@ export default function History() {
             </tr>
           </thead>
           <tbody>
-            <tr style={tableRow} className="mt-5">
-              <td className="pl-5" style={firstChild}>1</td>
-              <td>Mark</td>
-              <td style={lastChild}>Otto</td>
-            </tr>
+                {previousData.map((data, index) => {
+                   return <tr style={tableRow} className="mt-5">
+                            <td className="pl-5" style={firstChild}>{previousData[index][0]}</td>
+                            <td>{previousData[index][1]}</td>
+                            <td style={lastChild}>{previousData[index][2]}</td>
+                          </tr>
+                })}
           </tbody>
         </table>
       </div>

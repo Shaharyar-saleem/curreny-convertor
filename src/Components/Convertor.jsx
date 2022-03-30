@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import Switcher from "../assets/Switcher.png";
 import Result from "./Result.jsx";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
@@ -7,7 +7,9 @@ export default function Convertor() {
   let [amount, setAmount] = useState(1)
   let [from, setFrom] = useState('EUR')
   let [to, setTo] = useState('USD')
-  let [result, setResult] = useState();
+  let [result, setResult] = useState()
+  
+  let [historyData, setHistoryData] = useState([])
 
   let currencies = ['USD', 'EUR', 'CHF']
 
@@ -38,7 +40,28 @@ export default function Convertor() {
     let apiResult = await fetch(url)
     let data = await apiResult.json()
     setResult(data.conversion_result)
+
+    if(result){
+      let currentDate = new Date()
+      let newRecord = [currentDate.toDateString(), convertAmount + ' ' + convertFrom ,data.conversion_result + ' ' + convertTo];
+      
+      if(!localStorage.getItem('history')){
+        localStorage.setItem('history', '[]')
+      }
+      
+      let oldRecord = JSON.parse(localStorage.getItem('history'))
+      oldRecord.push(newRecord)
+      localStorage.setItem('history', JSON.stringify(oldRecord))
+    }
+    
  }
+
+//  useEffect(() => {
+//    return () => {
+//      localStorage.setItem('history', JSON.stringify(historyData))
+//      console.log("hi")
+//    };
+//  }, [historyData]);
 
   // styling of component
   let convertorHeading = {
