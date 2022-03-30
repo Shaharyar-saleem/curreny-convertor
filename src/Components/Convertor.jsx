@@ -16,7 +16,7 @@ export default function Convertor(props) {
 
   let handleConvertAmount = async (e) => {
     e.target.value <= 0
-      ? props.alert("Please enter amount above 0", "danger")
+      ? props.alert("Please enter valid amount", "danger")
       : setAmount(e.target.value);
   };
 
@@ -163,7 +163,7 @@ export default function Convertor(props) {
               </select>
             </div>
             <div className="col-md-2">
-              <button style={convertBtn} onClick={convertCurrency}>
+              <button style={convertBtn} onClick={convertCurrency} disabled={amount > 0 ? false : true}>
                 Convert
               </button>
             </div>

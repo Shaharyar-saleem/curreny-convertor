@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Result(props) {
   return (
-    props.result && (
+    props.result && props.amount && (
       <div className="mt-5 pt-5">
         <p style={{ color: "#fff", fontSize: "20px", lineHeight: "23px" }}>
           {props.amount} {props.from} =
