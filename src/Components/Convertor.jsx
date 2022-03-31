@@ -8,11 +8,7 @@ export default function Convertor(props) {
   let [from, setFrom] = useState("EUR");
   let [to, setTo] = useState("USD");
   let [result, setResult] = useState();
-  let currencies = ["USD", "EUR", "CHF"];
-
-  window.onload = () => {
-    convertCurrency();
-  };
+  let currencies = ["USD", "EUR", "CHF"]; //more currencies can be added here
 
   let handleConvertAmount = async (e) => {
     e.target.value <= 0
@@ -38,23 +34,21 @@ export default function Convertor(props) {
     let data = await apiResult.json();
     setResult(data.conversion_result);
 
-    if (result) {
-      let currentDate = new Date();
-      let newRecord = [
-        currentDate.toDateString(),
-        convertAmount + " " + convertFrom,
-        data.conversion_result + " " + convertTo,
-      ];
+    let currentDate = new Date();
+    let newRecord = [
+      currentDate.toDateString(),
+      convertAmount + " " + convertFrom,
+      data.conversion_result + " " + convertTo,
+    ];
 
-      if (!localStorage.getItem("history")) {
-        localStorage.setItem("history", "[]");
-      }
-
-      let oldRecord = JSON.parse(localStorage.getItem("history"));
-      oldRecord.push(newRecord);
-      localStorage.setItem("history", JSON.stringify(oldRecord));
-      props.alert("Transaction is stored in history", "success");
+    if (!window.localStorage.getItem("history")) {
+      window.localStorage.setItem("history", "[]");
     }
+
+    let oldRecord = JSON.parse(window.localStorage.getItem("history"));
+    oldRecord.push(newRecord);
+    window.localStorage.setItem("history", JSON.stringify(oldRecord));
+    props.alert("Transaction is stored in history", "success");
   };
 
   // styling of component
@@ -69,7 +63,7 @@ export default function Convertor(props) {
     backgroundColor: "#353535",
     padding: "20px 20px 40px 20px",
     borderRadius: "10px",
-    marginTop: "5%",
+    marginTop: "3%",
   };
   let formLabel = {
     color: "#C6C6C6",
@@ -163,7 +157,11 @@ export default function Convertor(props) {
               </select>
             </div>
             <div className="col-md-2">
-              <button style={convertBtn} onClick={convertCurrency} disabled={amount > 0 ? false : true}>
+              <button
+                style={convertBtn}
+                onClick={convertCurrency}
+                disabled={amount > 0 ? false : true}
+              >
                 Convert
               </button>
             </div>

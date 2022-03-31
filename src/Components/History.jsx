@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 export default function History() {
   let [previousData, setPreviousData] = useState(
-    JSON.parse(localStorage.getItem("history"))
+    JSON.parse(window.localStorage.getItem("history"))
   );
 
   let homeLink = {
