@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Alert(props) {
   const alertBox = {
-    width: "22%",
+    width: "24%",
     position: "absolute",
     right: "20px",
     bottom: "10px",

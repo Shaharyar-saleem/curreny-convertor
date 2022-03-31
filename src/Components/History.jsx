@@ -57,7 +57,8 @@ export default function History() {
             </tr>
           </thead>
           <tbody>
-            {previousData.map((data, index) => {
+            { previousData ?
+            previousData.map((data, index) => {
               return (
                 <tr style={tableRow} className="mt-5">
                   <td className="pl-5" style={firstChild}>
@@ -67,7 +68,7 @@ export default function History() {
                   <td style={lastChild}>{previousData[index][2]}</td>
                 </tr>
               );
-            })}
+            }): <h4 className="pl-5">No, History Found</h4>}
           </tbody>
         </table>
       </div>
