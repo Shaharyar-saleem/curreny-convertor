@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 export default function History() {
@@ -6,6 +6,12 @@ export default function History() {
     JSON.parse(window.localStorage.getItem("history"))
   );
 
+
+
+//   useEffect(()=>{
+//       console.log("useeffect here")
+//   })
+  
   let homeLink = {
     position: "absolute",
     top: "15%",

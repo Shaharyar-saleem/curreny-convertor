@@ -15,7 +15,7 @@ export default function Result(props) {
             fontSize: "40px",
           }}
         >
-          {props.result} {props.to}
+          {props.result.toFixed(2)} {props.to}
         </h2>
       </div>
     )

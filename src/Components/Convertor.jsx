@@ -38,7 +38,7 @@ export default function Convertor(props) {
     let newRecord = [
       currentDate.toDateString(),
       convertAmount + " " + convertFrom,
-      data.conversion_result + " " + convertTo,
+      data.conversion_result.toFixed(2) + " " + convertTo,
     ];
 
     if (!window.localStorage.getItem("history")) {
