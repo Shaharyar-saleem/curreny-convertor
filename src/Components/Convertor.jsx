@@ -4,11 +4,14 @@ import Result from "./Result.jsx";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 export default function Convertor(props) {
-  let [amount, setAmount] = useState(1);
-  let [from, setFrom] = useState("EUR");
-  let [to, setTo] = useState("USD");
-  let [result, setResult] = useState();
-  let currencies = ["USD", "EUR", "CHF"]; //more currencies can be added here
+  let [amount, setAmount] = useState(1)
+  let [from, setFrom] = useState("EUR")
+  let [to, setTo] = useState("USD")
+  let [currencyAmount, setCurrencyAmount] = useState(1)
+  let [fromCurrency, setFromCurrency] = useState("EUR")
+  let [toCurrency, setToCurrency] = useState("USD")
+  let [result, setResult] = useState()
+  let currencies = ["USD", "EUR", "CHF"] //more currencies can be added here
 
   let handleConvertAmount = async (e) => {
     e.target.value <= 0
@@ -25,16 +28,18 @@ export default function Convertor(props) {
   };
 
   let convertCurrency = async () => {
-    let convertFrom = from;
-    let convertTo = to;
-    let convertAmount = amount;
+    let convertFrom = from
+    let convertTo = to
+    let convertAmount = amount
     let accessKey = "cce645e42f54228b3438d45c";
-    const url = `https://v6.exchangerate-api.com/v6/${accessKey}/pair/${convertFrom}/${convertTo}/${convertAmount}`;
-    let apiResult = await fetch(url);
-    let data = await apiResult.json();
-    setResult(data.conversion_result);
-
-    let currentDate = new Date();
+    const url = `https://v6.exchangerate-api.com/v6/${accessKey}/pair/${convertFrom}/${convertTo}/${convertAmount}`
+    let apiResult = await fetch(url)
+    let data = await apiResult.json()
+    setResult(data.conversion_result)
+    setFromCurrency(convertFrom)
+    setToCurrency(convertTo)
+    setCurrencyAmount(convertAmount)
+    let currentDate = new Date()
     let newRecord = [
       currentDate.toDateString(),
       convertAmount + " " + convertFrom,
@@ -174,7 +179,7 @@ export default function Convertor(props) {
         </div>
       </div>
 
-      <Result from={from} to={to} amount={amount} result={result} />
+      <Result from={fromCurrency} to={toCurrency} amount={currencyAmount} result={result} />
     </div>
   );
 }
