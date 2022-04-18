@@ -11,7 +11,7 @@ export default function Convertor(props) {
   let [fromCurrency, setFromCurrency] = useState("EUR")
   let [toCurrency, setToCurrency] = useState("USD")
   let [result, setResult] = useState()
-  let currencies = ["USD", "EUR", "CHF"] //more currencies can be added here
+  let currencies = ["USD", "EUR", "CHF", "PKR"] //more currencies can be added here
 
   let handleConvertAmount = async (e) => {
     e.target.value <= 0
@@ -135,7 +135,7 @@ export default function Convertor(props) {
               >
                 {currencies.map((currency) => (
                   <option
-                    value={currency}
+                    defaultValue={currency}
                     key={currency}
                     selected={currency === "EUR" ? true : false}
                   >
